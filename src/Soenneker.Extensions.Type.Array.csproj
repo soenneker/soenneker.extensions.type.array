@@ -14,7 +14,7 @@
         <AssemblyName>Soenneker.Extensions.Type.Array</AssemblyName>
         <PackageId>Soenneker.Extensions.Type.Array</PackageId>
         <PackageTags>extensions type array extension typearrayextension csharp dotnet c# .net</PackageTags>
-        <Copyright>Copyright © 2024 Jake Soenneker</Copyright>
+        <Copyright>Copyright © 2024-2025 Jake Soenneker</Copyright>
         <Authors>Jake Soenneker</Authors>
         <Company>https://soenneker.com</Company>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
