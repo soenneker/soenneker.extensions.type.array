@@ -17,12 +17,17 @@ public static class TypeArrayExtension
     /// </returns>
     public static int ToHashKey(this System.Type[]? types)
     {
-        if (types == null || types.Length == 0)
+        if (types == null)
+            return 0;
+
+        int length = types.Length;
+
+        if (length == 0)
             return 0;
 
         var hash = new HashCode();
 
-        for (var i = 0; i < types.Length; i++)
+        for (var i = 0; i < length; i++)
         {
             System.Type type = types[i];
             hash.Add(type);
