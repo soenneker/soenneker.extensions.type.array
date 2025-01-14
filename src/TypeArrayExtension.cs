@@ -17,7 +17,7 @@ public static class TypeArrayExtension
     /// </returns>
     public static int ToHashKey(this System.Type[]? types)
     {
-        if (types == null)
+        if (types is null)
             return 0;
 
         int length = types.Length;
