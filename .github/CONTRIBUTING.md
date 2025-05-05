@@ -1,4 +1,4 @@
-# Contributing to Soenneker.Extensions.Type.Array
+﻿# Contributing to Soenneker.Extensions.Type.Array
 
 We're excited that you're interested in contributing!
 
