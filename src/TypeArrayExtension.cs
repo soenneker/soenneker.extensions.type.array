@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
 
 namespace Soenneker.Extensions.Type.Array;
 
@@ -15,6 +17,8 @@ public static class TypeArrayExtension
     /// An integer representing the hash code of the provided types.
     /// Returns 0 if the array is null or empty.
     /// </returns>
+    [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int ToHashKey(this System.Type[]? types)
     {
         if (types is null)
