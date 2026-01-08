@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
@@ -10,13 +9,15 @@ namespace Soenneker.Extensions.Type.Array;
 public static class TypeArrayExtension
 {
     /// <summary>
-    /// Generates a key as an integer based on the provided array of <see cref="System.Type"/>.
+    /// Computes a hash code that uniquely represents the sequence and identity of the specified array of types.
     /// </summary>
-    /// <param name="types">An array of <see cref="System.Type"/>. Can be null or empty.</param>
-    /// <returns>
-    /// An integer representing the hash code of the provided types.
-    /// Returns 0 if the array is null or empty.
-    /// </returns>
+    /// <remarks>The hash code is based on the reference identity of each type in the array, not their
+    /// structural equality. This method is useful for scenarios where the uniqueness of a type sequence is required,
+    /// such as caching or dictionary keys.</remarks>
+    /// <param name="types">An array of <see cref="System.Type"/> objects to include in the hash calculation. Can be <see langword="null"/>
+    /// or empty.</param>
+    /// <returns>An integer hash code representing the input type array. Returns 0 if <paramref name="types"/> is <see
+    /// langword="null"/> or empty.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int ToHashKey(this System.Type[]? types)
@@ -24,19 +25,16 @@ public static class TypeArrayExtension
         if (types is null)
             return 0;
 
-        int length = types.Length;
-
-        if (length == 0)
+        int len = types.Length;
+        
+        if (len == 0)
             return 0;
 
-        var hash = new HashCode();
+        var hash = unchecked((int)2166136261);
 
-        for (var i = 0; i < length; i++)
-        {
-            System.Type type = types[i];
-            hash.Add(type);
-        }
+        for (var i = 0; i < len; i++)
+            hash = unchecked((hash * 16777619) ^ RuntimeHelpers.GetHashCode(types[i]));
 
-        return hash.ToHashCode();
+        return hash;
     }
 }
