@@ -1,5 +1,6 @@
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
+using Soenneker.Extensions.Spans.Readonly.Types;
 
 namespace Soenneker.Extensions.Type.Array;
 
@@ -25,16 +26,6 @@ public static class TypeArrayExtension
         if (types is null)
             return 0;
 
-        int len = types.Length;
-        
-        if (len == 0)
-            return 0;
-
-        var hash = unchecked((int)2166136261);
-
-        for (var i = 0; i < len; i++)
-            hash = unchecked((hash * 16777619) ^ RuntimeHelpers.GetHashCode(types[i]));
-
-        return hash;
+        return ((System.ReadOnlySpan<System.Type>)types).ToHashKey();
     }
 }
