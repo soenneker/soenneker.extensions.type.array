@@ -4,7 +4,7 @@
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.extensions.type.array/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.extensions.type.array/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Extensions.Type.Array
-A collection of helpful Type array extension methods.
+Compute an order-sensitive, process-local hash for a `Type[]` signature.
 
 ## Installation
 
@@ -12,15 +12,15 @@ A collection of helpful Type array extension methods.
 dotnet add package Soenneker.Extensions.Type.Array
 ```
 
-## Quick start
+## Usage
 
 ```csharp
 using Soenneker.Extensions.Type.Array;
 
-// Given an existing System.Type[]? named types:
-var result = types.ToHashKey();
+Type[] signature = [typeof(string), typeof(int), typeof(CancellationToken)];
+int hash = signature.ToHashKey();
 ```
 
-## Common operations
+The same runtime `Type` objects in the same order produce the same hash within a process. A null or empty array returns `0`; changing the order generally changes the result.
 
-- `ToHashKey()` - Computes a hash code that uniquely represents the sequence and identity of the specified array of types. Returns an integer hash code representing the input type array. Returns 0 if `types` is `null` or empty.
+The hash uses runtime object identity. It is not stable across processes or application runs, is not cryptographic, and is not guaranteed unique. Do not persist it as a type identifier or use it as the sole equality check for a cache key; retain and compare the original type sequence when collisions matter.

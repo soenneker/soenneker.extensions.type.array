@@ -10,11 +10,10 @@ namespace Soenneker.Extensions.Type.Array;
 public static class TypeArrayExtension
 {
     /// <summary>
-    /// Computes a hash code that uniquely represents the sequence and identity of the specified array of types.
+    /// Computes an order-sensitive hash code from the runtime identity of each type in the array.
     /// </summary>
     /// <remarks>The hash code is based on the reference identity of each type in the array, not their
-    /// structural equality. This method is useful for scenarios where the uniqueness of a type sequence is required,
-    /// such as caching or dictionary keys.</remarks>
+    /// structural equality. The result is process-local and collisions are possible.</remarks>
     /// <param name="types">An array of <see cref="System.Type"/> objects to include in the hash calculation. Can be <see langword="null"/>
     /// or empty.</param>
     /// <returns>An integer hash code representing the input type array. Returns 0 if <paramref name="types"/> is <see
